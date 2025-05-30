@@ -3,7 +3,7 @@ import css from "./MovieModal.module.css";
 import type { Movie } from "../../types/movie";
 
 interface MovieModalProps {
-  movie: Movie;
+  movie: Movie | undefined;
   onClose: () => void;
 }
 

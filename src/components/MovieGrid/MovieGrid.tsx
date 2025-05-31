@@ -8,7 +8,7 @@ onSelect: (movie: Movie) => void;
 
 export default function MovieGrid({onSelect, movies }: MovieGridProps) {
    
-console.log(movies);
+ 
   return (
     <>
       {movies.length > 0 &&(

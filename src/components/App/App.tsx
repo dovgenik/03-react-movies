@@ -13,10 +13,11 @@ import Loader from "../Loader/Loader.tsx";
 const notify = () =>
   toast((t) => (
     <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-      <span>No movies found for your request.</span>
+      <span><span style={{ color: "#c678dd" }}>No </span>movies <span style={{ color: "#e6c07b" }}>found</span> <span style={{ color: "#c678dd" }}>for</span> your request.</span>
       <button onClick={() => toast.dismiss(t.id)}>Close</button>
     </div>
   ));
+ 
 
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -31,6 +32,9 @@ export default function App() {
       setIsLoading(true);
       const result = await movieService(data);
       setResponseData(result.results);
+      if (result.results.length===0) {
+        notify() ;
+      };
     } catch (error) {
       setIsError(true);
       console.error("Error fetching movies:", error);
@@ -38,6 +42,8 @@ export default function App() {
       setIsLoading(false);
     }
   };
+
+
 
   const openModal = (selectedMovie: Movie) => {
     setIsModalOpen(true);
@@ -56,7 +62,7 @@ export default function App() {
       )}
 
       {isModalOpen && <MovieModal movie={selectedMovie} onClose={closeModal} />}
-      <button onClick={notify}>Make me a toast</button>
+      
       <Toaster />
     </>
   );

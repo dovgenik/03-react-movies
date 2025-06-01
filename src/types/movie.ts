@@ -6,4 +6,10 @@ export interface Movie {
     overview: string;
     release_date: string;
     vote_average: number;
-}
+};
+
+export interface InitAxios {
+  baseURL: string;
+  authorization: string;
+  accept: string;
+};

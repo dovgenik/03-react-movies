@@ -1,7 +1,7 @@
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import MovieModal from "../MovieModal/MovieModal.tsx";
-import type { Movie } from "../../types/movie";
+import type { Movie, InitAxios } from "../../types/movie";
 import MovieGrid from "../MovieGrid/MovieGrid.tsx";
 import movieService from "../../services/movieService.ts";
 import SearchBar from "../SearchBar/SearchBar.tsx";
@@ -20,18 +20,22 @@ const notify = () =>
     </div>
   ));
 
+
+
+
+
 export default function App() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [responseData, setResponseData] = useState<Movie[]>([]);
-  const [selectedMovie, setSelectedMovie] = useState<Movie>();
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const handleSearch = async (data: string) => {
+  const handleSearch = async (data: string, initAxios: InitAxios) => {
     try {
       setIsError(false);
       setIsLoading(true);
-      const result = await movieService(data);
+      const result = await movieService(data, initAxios);
       setResponseData(result.results);
       if (result.results.length === 0) {
         notify();
@@ -52,7 +56,7 @@ export default function App() {
 
   return (
     <>
-      <SearchBar onSubmitSearchBar={handleSearch} />
+      <SearchBar onSubmit={handleSearch} />
       {isLoading && <Loader />}
       {isError ? (
         <ErrorMessage />

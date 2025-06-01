@@ -1,10 +1,16 @@
-//import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import styles from "./SearchBar.module.css";
+import type { InitAxios } from "../../types/movie";
 
 interface SearchBarProps {
-  onSubmitSearchBar: (value: string) => void;
+  onSubmit: (value: string, initAxios: InitAxios) => void;
 }
+
+const initAxios: InitAxios = {
+  baseURL: "https://api.themoviedb.org",
+  authorization: import.meta.env.VITE_TMDB_TOKEN,
+  accept: "application/json",
+};
 
 const notify = () =>
   toast((t) => (
@@ -16,7 +22,7 @@ const notify = () =>
     </div>
   ));
   
-export default function SearchBar({ onSubmitSearchBar }: SearchBarProps) {
+export default function SearchBar({ onSubmit }: SearchBarProps) {
   const handleSubmit = (formData: FormData) => {
     const queryStr = formData.get("query") as string;
     if (queryStr.trim() === "") {
@@ -24,7 +30,7 @@ export default function SearchBar({ onSubmitSearchBar }: SearchBarProps) {
       return;
     }
 
-    onSubmitSearchBar(queryStr);
+    onSubmit(queryStr, initAxios);
   };
 
   return (

@@ -1,6 +1,5 @@
 import axios from "axios";
-import type { Movie } from "../types/movie";
-
+import type { Movie, InitAxios } from "../types/movie";
 interface HttpResponse {
   page: number;
   results: Movie[];
@@ -8,13 +7,10 @@ interface HttpResponse {
   total_results: number;
 }
 
-export default async function movieService(
-  data: string
-): Promise<HttpResponse> {
-  axios.defaults.baseURL = "https://api.themoviedb.org";
-  axios.defaults.headers.common["Authorization"] =
-    import.meta.env.VITE_TMDB_TOKEN;
-  axios.defaults.headers.common["accept"] = "application/json";
+export default async function movieService(data: string, {baseURL, authorization, accept}: InitAxios): Promise<HttpResponse> {
+  axios.defaults.baseURL = baseURL;
+  axios.defaults.headers.common["Authorization"] = authorization;
+  axios.defaults.headers.common["accept"] = accept;
 
   return (
     await axios.get<HttpResponse>(

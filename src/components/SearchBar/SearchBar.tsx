@@ -1,6 +1,5 @@
 import toast, { Toaster } from "react-hot-toast";
 import styles from "./SearchBar.module.css";
-import type { InitAxios } from "../../types/movie";
 
 interface SearchBarProps {
   onSubmit: (value: string) => void;

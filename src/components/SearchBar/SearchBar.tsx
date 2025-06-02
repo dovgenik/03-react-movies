@@ -3,14 +3,10 @@ import styles from "./SearchBar.module.css";
 import type { InitAxios } from "../../types/movie";
 
 interface SearchBarProps {
-  onSubmit: (value: string, initAxios: InitAxios) => void;
+  onSubmit: (value: string) => void;
 }
 
-const initAxios: InitAxios = {
-  baseURL: "https://api.themoviedb.org",
-  authorization: import.meta.env.VITE_TMDB_TOKEN,
-  accept: "application/json",
-};
+
 
 const notify = () =>
   toast((t) => (
@@ -30,7 +26,7 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
       return;
     }
 
-    onSubmit(queryStr, initAxios);
+    onSubmit(queryStr );
   };
 
   return (

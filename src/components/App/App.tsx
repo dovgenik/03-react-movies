@@ -1,7 +1,7 @@
 import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import MovieModal from "../MovieModal/MovieModal.tsx";
-import type { Movie} from "../../types/movie";
+import type { Movie } from "../../types/movie";
 import MovieGrid from "../MovieGrid/MovieGrid.tsx";
 import searchMovies from "../../services/movieService.ts";
 import SearchBar from "../SearchBar/SearchBar.tsx";
@@ -48,7 +48,10 @@ export default function App() {
     setIsModalOpen(true);
     setSelectedMovie(selectedMovie);
   };
-  const closeModal = () => setIsModalOpen(false);
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedMovie(null);
+  };
 
   return (
     <>
@@ -60,7 +63,9 @@ export default function App() {
         <MovieGrid onSelect={openModal} movies={responseData} />
       )}
 
-      {isModalOpen && selectedMovie && (<MovieModal movie={selectedMovie} onClose={closeModal} /> )}
+      {isModalOpen && selectedMovie && (
+        <MovieModal movie={selectedMovie} onClose={closeModal} />
+      )}
 
       <Toaster />
     </>

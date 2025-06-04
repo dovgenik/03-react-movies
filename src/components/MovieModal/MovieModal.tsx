@@ -2,11 +2,13 @@ import { createPortal } from "react-dom";
 import css from "./MovieModal.module.css";
 import type { Movie } from "../../types/movie";
 import { useEffect } from "react";
+import imgAlt from "../../assets/people-office-320.jpg";
 
 interface MovieModalProps {
   movie: Movie;
   onClose: () => void;
 }
+
 
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
   useEffect(() => {
@@ -48,7 +50,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
           &times;
         </button>
         <img
-          src={ movie.backdrop_path ?  `https://image.tmdb.org/t/p/original/${movie.backdrop_path}` : "/public/people-office-320.jpg" }
+          src={ movie.backdrop_path ?  `https://image.tmdb.org/t/p/original/${movie.backdrop_path}` : `${imgAlt}`}
           alt={movie.title}
           className={css.image}
         />

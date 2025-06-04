@@ -55,7 +55,8 @@ export default function SearchBar({ onSubmit }: SearchBarProps) {
           </form>
         </div>
       </header>
-      <Toaster />
+      
     </>
   );
 }
+// <Toaster />

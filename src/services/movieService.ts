@@ -7,15 +7,21 @@ interface HttpResponse {
   total_results: number;
 }
 
-
-export default async function searchMovies(data: string): Promise<HttpResponse> {
-  axios.defaults.baseURL = "https://api.themoviedb.org";
-  axios.defaults.headers.common["Authorization"] = import.meta.env.VITE_TMDB_TOKEN;
-  axios.defaults.headers.common["accept"] = "application/json";
-
+export default async function searchMovies(
+  data: string
+): Promise<HttpResponse> {
   return (
     await axios.get<HttpResponse>(
-      `/3/search/movie?query=${data}&include_adult=false&language=en-US&page=1`
+      `https://api.themoviedb.org/3/search/movie?query=${data}&include_adult=false&language=en-US`,
+      {
+        params: {
+          page: 1,
+        },
+        headers: {
+          Authorization: `Bearer ${import.meta.env.VITE_TMDB_TOKEN}`,
+          accept: "application/json",
+        },
+      }
     )
   ).data;
 }
